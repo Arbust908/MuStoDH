@@ -18,7 +18,8 @@ class CuerdaController extends Controller
 		{
 			$cuerdas = Cuerda::All();
 
-			return view('categoria-cuerda',compact('cuerdas'));
+			return view('cuerdas',compact('cuerdas'));
+			//return view('categoria-cuerda',compact('cuerdas'));
 		}
 
 		/**
@@ -40,7 +41,7 @@ class CuerdaController extends Controller
 		public function store(Request $request)
 		{
 			$reglas = [
-				"title" => "required|string",
+				"name" => "required|string",
 				"description" => "required|string",
 				"price" =>  "required|numeric|min:0|max:999999",
 				"thumbnail" => "image"
@@ -49,23 +50,23 @@ class CuerdaController extends Controller
 			$mensajes = [
 				"required" => ":attribute es requerido",
 				"min" => ":attribute tiene un mínimo de :min",
-				"max" => ":attribute tiene un maximo de :max"
+				"max" => ":attribute tiene un maximo de :max",
+				"image" => ":attribute tiene que ser una imagen"
 			];
 
 			$this->validate($request, $reglas, $mensajes);
 
 			$foto = $request->file("thumbnail");
-
 			$nombreFoto = $foto->storePublicly("public/thumbnails");
 
 			$cuerda = new Cuerda();
-			$cuerda->title = $request["title"];
+			$cuerda->name = $request["name"];
 			$cuerda->description = $request["description"];
 			$cuerda->price = $request["price"];
-			$cuerda->poster = $nombreFoto;
+			$cuerda->thumbnail = $nombreFoto;
 
 			$cuerda->save();
-			Session::flash('message', 'El instrumento se creo!');
+			//Session::flash('message', 'El instrumento se creo!');
 
 			return redirect('cuerdas');
 			}
@@ -76,10 +77,8 @@ class CuerdaController extends Controller
 		* @param  \App\Cuerda  $cuerda
 		* @return \Illuminate\Http\Response
 		*/
-		public function show(Cuerda $id)
+		public function show(Cuerda $cuerda)
 		{
-			$cuerda = Cuerda::find($id);
-
 			return view('cuerda',compact('cuerda'));
 		}
 
@@ -89,10 +88,10 @@ class CuerdaController extends Controller
 		* @param  \App\Cuerda  $cuerda
 		* @return \Illuminate\Http\Response
 		*/
-		public function edit(Cuerda $id)
+		public function edit(Cuerda $cuerda)
 		{
-			$cuerda = Cuerda::find($id);
-
+			$item = Cuerda::find($cuerda->id);
+			
 			return view('editarCuerda',compact('cuerda'));
 		}
 
@@ -103,13 +102,11 @@ class CuerdaController extends Controller
 		* @param  \App\Cuerda  $cuerda
 		* @return \Illuminate\Http\Response
 		*/
-		public function update(Request $request, Cuerda $id)
+		public function update(Request $request, Cuerda $cuerda)
 		{
-			$viejo = Cuerda::find($id);
-
 
 			$reglas = [
-				"title" => "required|string",
+				"name" => "required|string",
 				"description" => "string",
 				"price" =>  "numeric|min:0|max:999999",
 				"thumbnail" => "image"
@@ -128,15 +125,14 @@ class CuerdaController extends Controller
 				$foto = $request->file("thumbnail");
 
 				$nombreFoto = $foto->storePublicly("public/thumbnails");
-				$viejo[0]->poster = $nombreFoto;
+				$cuerda->thumbnail = $nombreFoto;
 			}
 
-			$viejo[0]->name = $request["name"];
-			$viejo[0]->description = $request["description"];
-			$viejo[0]->price = $request["price"];
+			$cuerda->name = $request["name"];
+			$cuerda->description = $request["description"];
+			$cuerda->price = $request["price"];
 
-			dd($viejo);
-			$viejo[0]->save();
+			$cuerda->save();
 
 
 			return redirect('/categoria-cuerda');
@@ -148,14 +144,11 @@ class CuerdaController extends Controller
 		* @param  \App\Cuerda  $cuerda
 		* @return \Illuminate\Http\Response
 		*/
-		public function destroy(Cuerda $id)
+		public function destroy(Cuerda $cuerda)
 		{
-			$cuerda = Cuerda::find($id);
-
-			$cuerda[0]->delete();
-
+			$cuerda->delete();
 				//hacer la prefgunta (si queres borrar)
-				//  Session::flash('message', 'Se borro Pa!!! XD');
+				//Session::flash('message', 'Se borro Pa!!! XD');
 			return redirect('/cuerda');
 		}
 }

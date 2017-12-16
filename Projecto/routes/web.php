@@ -22,17 +22,26 @@ Route::get('/index', function () {
 Route::get('/login', function(){
 	return view('login');
 });
+Route::get('/categorias', function(){
+	return view('categorias');
+});
+Route::get('/register', function(){
+	return view('register');
+});
+Route::get('/faq', function(){
+	return view('faq');
+});
 
- Route::get('logout', 'LoginController@logout'); 
+Route::get('logout', 'LoginController@logout');
 
-//Route::get('/cuerda', 'CuerdaController@index'); 
-Route::get('/cuerda/crear', 'CuerdaController@create'); 
-Route::post('/cuerda/crear', 'CuerdaController@store'); 
-Route::get('/cuerda/{id}/edit', 'CuerdaController@edit'); 
+Route::get('/cuerdas', 'CuerdaController@index');
+Route::get('/cuerda/crear', 'CuerdaController@create');
+Route::post('/cuerda/crear', 'CuerdaController@store');
+Route::get('/cuerda/{id}', 'CuerdaController@show');
+Route::get('/cuerda/{id}/edit', 'CuerdaController@edit');
 Route::put('/cuerda/{id}/edit', 'CuerdaController@update');
 Route::delete('/cuerda/{id}/delete', 'CuerdaController@destroy');
-Route::get('/cuerda/{id}', 'CuerdaController@show'); 
- 
+
 
 
 
@@ -45,16 +54,7 @@ Route::get('/viento', function(){
 Route::get('/percucion', function(){
 	return view('categoria-percucion');
 });
-Route::get('/categorias', function(){
-	return view('categorias');
-});
-Route::get('/register', function(){
-	return view('register');
-});
 
-Route::get('/faq', function(){
-	return view('faq');
-});
 
 Route::get('/perfil', function(){
 	return view('perfil');

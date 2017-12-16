@@ -18,10 +18,10 @@ class CreateCuerdasTable extends Migration
             $table->string('name')->unique();
             $table->text('description');
             $table->float('price');
-            $table->string('thubnail');
+            $table->string('thumbnail');
             $table->timestamps();
-            
-            
+
+
         });
     }
 

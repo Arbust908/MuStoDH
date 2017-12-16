@@ -7,7 +7,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2 sing-in-master">
-
+					<span>@if ($errors)
+						{{ $errors }}
+					@endif</span>
             <img src="/images/logo.png" alt="logotipo" class="logo sing-in">
 
         <form class="form-horizontal" method="POST" action="{{ url('/cuerda/crear') }}" enctype="multipart/form-data">
