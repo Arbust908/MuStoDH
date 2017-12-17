@@ -3,23 +3,27 @@
 @section('main')
 	<main>
 		<section>
-
+			<h2> Cuerdas </h2>
 		</section>
 
-		<section>
-			<table>
+		<section style="color:white">
+			<table class="table col-xs-8">
 				<tr>
+					<th>Number</th>
 					<th>Nombre</th>
 					<th>Precios</th>
 					<th>Acciones</th>
 				</tr>
-				@foreach ($cuerdas as $cuerda)
-					<tr>
-						<td>{{$cuerda->name}}</td>
-						<td>{{$cuerda->price}}</td>
-						<td><a href="/cuerda/{{$cuerda->id}}/edit">Editar</a><a href="/cuerda/{{$cuerda->id}}/delete">Eliminar</a></td>
-					</tr>
-				@endforeach
+				<tbody class="table-striped table-hover">
+					@foreach ($cuerdas as $cuerda)
+						<tr>
+							<td>{{$cuerda->id}}</td>
+							<td>{{$cuerda->name}}</td>
+							<td>{{$cuerda->price}}</td>
+							<td><a href="/cuerda/{{$cuerda->id}}/edit">Editar</a></td>
+						</tr>
+					@endforeach
+				</tbody>
 			</table>
 		</section>
 

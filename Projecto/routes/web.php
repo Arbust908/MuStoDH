@@ -37,10 +37,10 @@ Route::get('logout', 'LoginController@logout');
 Route::get('/cuerdas', 'CuerdaController@index');
 Route::get('/cuerda/crear', 'CuerdaController@create');
 Route::post('/cuerda/crear', 'CuerdaController@store');
-Route::get('/cuerda/{id}', 'CuerdaController@show');
-Route::get('/cuerda/{id}/edit', 'CuerdaController@edit');
-Route::put('/cuerda/{id}/edit', 'CuerdaController@update');
-Route::delete('/cuerda/{id}/delete', 'CuerdaController@destroy');
+Route::get('/cuerda/{cuerda}', 'CuerdaController@show');
+Route::get('/cuerda/{cuerda}/edit', 'CuerdaController@edit');
+Route::put('/cuerda/{cuerda}/edit', 'CuerdaController@update');
+Route::delete('/cuerda/{cuerda}/delete', 'CuerdaController@destroy');
 
 
 

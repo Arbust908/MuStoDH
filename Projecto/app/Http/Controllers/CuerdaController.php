@@ -59,11 +59,13 @@ class CuerdaController extends Controller
 			$foto = $request->file("thumbnail");
 			$nombreFoto = $foto->storePublicly("public/thumbnails");
 
+			$linkIMG = "/storage" . str_replace("public", "", $nombreFoto);
+
 			$cuerda = new Cuerda();
 			$cuerda->name = $request["name"];
 			$cuerda->description = $request["description"];
 			$cuerda->price = $request["price"];
-			$cuerda->thumbnail = $nombreFoto;
+			$cuerda->thumbnail = $linkIMG;
 
 			$cuerda->save();
 			//Session::flash('message', 'El instrumento se creo!');
@@ -91,7 +93,7 @@ class CuerdaController extends Controller
 		public function edit(Cuerda $cuerda)
 		{
 			$item = Cuerda::find($cuerda->id);
-			
+
 			return view('editarCuerda',compact('cuerda'));
 		}
 
@@ -125,7 +127,8 @@ class CuerdaController extends Controller
 				$foto = $request->file("thumbnail");
 
 				$nombreFoto = $foto->storePublicly("public/thumbnails");
-				$cuerda->thumbnail = $nombreFoto;
+				$linkIMG = "/storage" . str_replace("public", "", $nombreFoto);
+				$cuerda->thumbnail = $linkIMG;
 			}
 
 			$cuerda->name = $request["name"];
@@ -135,7 +138,7 @@ class CuerdaController extends Controller
 			$cuerda->save();
 
 
-			return redirect('/categoria-cuerda');
+			return redirect('/cuerda');
 		}
 
 		/**
